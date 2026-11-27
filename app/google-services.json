@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211579764210",
+    "project_id": "michitask-b6864",
+    "storage_bucket": "michitask-b6864.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211579764210:android:debd4be58f943048f4ff6b",
+        "android_client_info": {
+          "package_name": "com.devst.michitask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQOVrG8EMX97i0AY5-z2J4FuwJFVkhdv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
