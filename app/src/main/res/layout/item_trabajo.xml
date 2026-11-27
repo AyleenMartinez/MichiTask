@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#EDE3FA"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Título y prioridad -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#67469B"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Aplicación MichiTask" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPrioridad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3D3448"
+                android:textSize="12sp"
+                android:clickable="false"
+                app:chipBackgroundColor="#F4C2D7"
+                app:chipStrokeWidth="0dp"
+                tools:text="Alta" />
+
+        </LinearLayout>
+
+        <!-- Asignatura -->
+
+        <TextView
+            android:id="@+id/tvAsignatura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="#79668C"
+            android:textSize="14sp"
+            tools:text="Android" />
+
+        <!-- Descripción -->
+
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textColor="#3D3448"
+            android:textSize="14sp"
+            tools:text="Implementar CRUD con Firebase." />
+
+        <!-- Separador -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EDE3FA" />
+
+        <!-- Fecha y estado -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFecha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#79668C"
+                android:textSize="13sp"
+                tools:text="Entrega: 27/11/2026" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#67469B"
+                android:textSize="12sp"
+                android:clickable="false"
+                app:chipBackgroundColor="#EDE3FA"
+                app:chipStrokeWidth="0dp"
+                tools:text="En progreso" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

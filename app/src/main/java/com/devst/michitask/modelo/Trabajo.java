@@ -1,8 +1,11 @@
 
 package com.devst.michitask.modelo;
 
+import com.google.firebase.firestore.DocumentId;
+
 public class Trabajo {
 
+    private String id;
     private String titulo;
     private String asignatura;
     private String descripcion;
@@ -10,7 +13,6 @@ public class Trabajo {
     private String prioridad;
     private String estado;
 
-    // Constructor requerido por Firestore
     public Trabajo() {
     }
 
@@ -24,6 +26,15 @@ public class Trabajo {
         this.fechaEntrega = fechaEntrega;
         this.prioridad = prioridad;
         this.estado = estado;
+    }
+
+    @DocumentId
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {

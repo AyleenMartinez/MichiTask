@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="🐱"
-        android:textSize="64sp"
-        android:layout_marginTop="32dp" />
+        android:textSize="48sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -22,61 +22,90 @@
         android:gravity="center"
         android:text="MichiTask"
         android:textColor="#67469B"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="Sobrevive al semestre"
         android:textColor="#79668C"
-        android:textSize="16sp"
-        android:layout_marginBottom="32dp" />
+        android:textSize="14sp" />
 
-    <com.google.android.material.card.MaterialCardView
+    <!-- Encabezado del listado -->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#EDE3FA"
-        app:strokeWidth="1dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_weight="1"
+            android:text="Mis trabajos"
+            android:textColor="#67469B"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mis trabajos"
-                android:textColor="#67469B"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvContador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 trabajos"
+            android:textColor="#79668C"
+            android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Organiza tus entregas y pendientes universitarios."
-                android:textColor="#79668C"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="20dp" />
+    </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNuevoTrabajo"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="+ Agregar trabajo"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#67469B"
-                app:cornerRadius="16dp" />
+    <!-- Indicador de carga -->
 
-        </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressTrabajos"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="#67469B"
+        android:visibility="gone" />
 
-    </com.google.android.material.card.MaterialCardView>
+    <!-- Mensaje cuando no existen trabajos -->
+
+    <TextView
+        android:id="@+id/tvVacio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="Todavía no tienes trabajos.\n¡Agrega tu primer pendiente!"
+        android:textColor="#79668C"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <!-- Listado de trabajos -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTrabajos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_trabajo" />
+
+    <!-- Botón para crear trabajos -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNuevoTrabajo"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:text="+ Agregar trabajo"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:backgroundTint="#67469B"
+        app:cornerRadius="16dp" />
 
 </LinearLayout>

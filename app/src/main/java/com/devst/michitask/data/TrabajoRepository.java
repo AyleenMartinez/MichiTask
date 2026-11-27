@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class TrabajoRepository {
 
@@ -17,6 +18,7 @@ public class TrabajoRepository {
     private final FirebaseAuth auth =
             FirebaseAuth.getInstance();
 
+    // CREATE: Crear un trabajo
     public Task<DocumentReference> crearTrabajo(Trabajo trabajo) {
 
         FirebaseUser usuario = auth.getCurrentUser();
@@ -31,5 +33,23 @@ public class TrabajoRepository {
                 .document(usuario.getUid())
                 .collection("trabajos")
                 .add(trabajo);
+    }
+
+    // READ: Consultar los trabajos del usuario
+    public Task<QuerySnapshot> obtenerTrabajos() {
+
+        FirebaseUser usuario = auth.getCurrentUser();
+
+        if (usuario == null) {
+            return Tasks.forException(
+                    new IllegalStateException("No hay una sesión activa")
+            );
+        }
+
+        return db.collection("usuarios")
+                .document(usuario.getUid())
+                .collection("trabajos")
+                .orderBy("fechaEntrega")
+                .get();
     }
 }
