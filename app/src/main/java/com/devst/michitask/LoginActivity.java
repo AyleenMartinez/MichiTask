@@ -37,6 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Si el usuario ya inició sesión antes, no le pedimos los datos otra vez
+        if (SessionManager.haySesionActiva()) {
+            irAPantallaPrincipal();
+            return;
+        }
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

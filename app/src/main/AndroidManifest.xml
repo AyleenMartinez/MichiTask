@@ -30,6 +30,8 @@
             android:name=".RegistroActivity"
             android:exported="false" />
 
+        <!-- exported="false": ninguna otra app puede abrir esta pantalla directamente.
+             La única forma de llegar es pasando por el login. -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
