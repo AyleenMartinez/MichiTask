@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -57,6 +58,10 @@ public class RegistroActivity extends AppCompatActivity {
         progressRegistro = findViewById(R.id.progressRegistro);
 
         btnRegistrar.setOnClickListener(v -> registrarUsuario());
+
+        // Volver al login: el registro se abrió encima del login, así que basta con cerrarlo
+        TextView tvIrLogin = findViewById(R.id.tvIrLogin);
+        tvIrLogin.setOnClickListener(v -> finish());
     }
 
     private void registrarUsuario() {

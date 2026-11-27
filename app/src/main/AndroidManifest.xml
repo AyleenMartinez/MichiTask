@@ -15,10 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MichiTask">
 
-        <!-- Por ahora el registro es la pantalla inicial para poder probarlo.
-             En el siguiente commit la pantalla inicial pasa a ser el login. -->
+        <!-- El login es la primera pantalla que se abre -->
         <activity
-            android:name=".RegistroActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".RegistroActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
