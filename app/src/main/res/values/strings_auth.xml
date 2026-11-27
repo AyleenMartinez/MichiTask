@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos del módulo de autenticación.
+     Están en un archivo aparte para no chocar con strings.xml de mi compañera. -->
+<resources>
+    <string name="auth_icono_michi">🐱</string>
+
+    <!-- Campos comunes -->
+    <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+
+    <!-- Pantalla de login -->
+    <string name="login_titulo">MichiTask</string>
+    <string name="login_subtitulo">Tus trabajos, bajo la mirada de un michi</string>
+    <string name="btn_iniciar_sesion">Iniciar sesión</string>
+    <string name="txt_ir_registro">¿No tienes cuenta? Crea una</string>
+
+    <!-- Pantalla de registro -->
+    <string name="registro_titulo">Crea tu cuenta</string>
+    <string name="registro_subtitulo">Únete a la manada de MichiTask</string>
+    <string name="hint_confirmar_contrasena">Confirmar contraseña</string>
+    <string name="btn_registrarse">Registrarme</string>
+    <string name="txt_ir_login">¿Ya tienes cuenta? Inicia sesión</string>
+
+    <!-- Validaciones -->
+    <string name="error_correo_vacio">Ingresa tu correo</string>
+    <string name="error_correo_invalido">El formato del correo no es válido</string>
+    <string name="error_contrasena_vacia">Ingresa tu contraseña</string>
+    <string name="error_contrasena_corta">Debe tener al menos 6 caracteres</string>
+    <string name="error_confirmar_vacia">Repite tu contraseña</string>
+    <string name="error_contrasenas_distintas">Las contraseñas no coinciden</string>
+
+    <!-- Respuestas de Firebase al registrarse -->
+    <string name="msg_registro_ok">¡Cuenta creada! Bienvenido a MichiTask</string>
+    <string name="error_correo_en_uso">Ese correo ya está registrado</string>
+    <string name="error_contrasena_debil">La contraseña es muy débil</string>
+    <string name="error_sin_conexion">Sin conexión a internet. Inténtalo de nuevo</string>
+    <string name="error_registro_general">No se pudo crear la cuenta. Inténtalo de nuevo</string>
+
+    <!-- Respuestas de Firebase al iniciar sesión -->
+    <string name="msg_login_ok">¡Hola de nuevo! 🐾</string>
+    <string name="error_credenciales">Correo o contraseña incorrectos</string>
+    <string name="error_cuenta_deshabilitada">Esta cuenta está deshabilitada</string>
+    <string name="error_demasiados_intentos">Demasiados intentos. Espera un momento y vuelve a intentarlo</string>
+    <string name="error_login_general">No se pudo iniciar sesión. Inténtalo de nuevo</string>
+</resources>
