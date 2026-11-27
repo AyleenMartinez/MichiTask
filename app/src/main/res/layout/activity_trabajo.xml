@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/formularioRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9F2"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="🐱"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/tvTituloFormulario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nuevo trabajo"
+            android:textColor="#67469B"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Un trabajo a la vez, un michi feliz."
+            android:textColor="#79668C"
+            android:textSize="14sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#EDE3FA"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Nombre del trabajo -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTitulo"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Nombre del trabajo"
+                    app:boxStrokeColor="#9575CD"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTitulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="#3D3448"
+                        android:maxLength="100" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Asignatura -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAsignatura"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Asignatura"
+                    app:boxStrokeColor="#9575CD"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAsignatura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="#3D3448"
+                        android:maxLength="80" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Descripción -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDescripcion"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Descripción"
+                    app:boxStrokeColor="#9575CD"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:gravity="top"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textColor="#3D3448"
+                        android:maxLength="500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Fecha de entrega -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de entrega"
+                    android:textColor="#3D3448"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Seleccionar fecha"
+                    android:textColor="#67469B"
+                    app:backgroundTint="#EDE3FA"
+                    app:cornerRadius="12dp" />
+
+                <!-- Prioridad -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Prioridad"
+                    android:textColor="#3D3448"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spPrioridad"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Estado -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estado"
+                    android:textColor="#3D3448"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spEstado"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Guardar -->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuardar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Guardar trabajo"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#67469B"
+                    app:cornerRadius="16dp" />
+
+                <!-- Cancelar -->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Cancelar"
+                    android:textColor="#67469B"
+                    app:backgroundTint="#EDE3FA"
+                    app:cornerRadius="16dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

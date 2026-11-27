@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Firebase necesita internet para crear cuentas e iniciar sesión -->
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,26 +14,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MichiTask">
 
-        <!-- El login es la primera pantalla que se abre -->
+        <!-- Pantalla inicial -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
+        <!-- Registro de usuarios -->
         <activity
             android:name=".RegistroActivity"
             android:exported="false" />
 
-        <!-- exported="false": ninguna otra app puede abrir esta pantalla directamente.
-             La única forma de llegar es pasando por el login. -->
+        <!-- Pantalla principal de trabajos -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <!-- Creación y edición de trabajos -->
+        <activity
+            android:name=".TrabajoActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
