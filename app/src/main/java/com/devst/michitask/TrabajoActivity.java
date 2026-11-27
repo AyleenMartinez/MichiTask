@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.devst.michitask.data.TrabajoRepository;
 import com.devst.michitask.modelo.Trabajo;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,6 +34,8 @@ public class TrabajoActivity extends AppCompatActivity {
     private TextInputLayout tilAsignatura;
     private TextInputLayout tilDescripcion;
 
+    private TextView tvTituloFormulario;
+
     private Spinner spPrioridad;
     private Spinner spEstado;
 
@@ -39,6 +44,9 @@ public class TrabajoActivity extends AppCompatActivity {
     private Button btnCancelar;
 
     private String fechaEntrega = "";
+    private String idTrabajo;
+
+    private boolean modoEdicion = false;
 
     private TrabajoRepository repository;
 
@@ -52,11 +60,16 @@ public class TrabajoActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.formularioRoot),
                 (v, insets) -> {
-                    var barras = insets.getInsets(
+
+                    Insets barras = insets.getInsets(
                             WindowInsetsCompat.Type.systemBars());
 
-                    v.setPadding(barras.left, barras.top,
-                            barras.right, barras.bottom);
+                    v.setPadding(
+                            barras.left,
+                            barras.top,
+                            barras.right,
+                            barras.bottom
+                    );
 
                     return insets;
                 });
@@ -66,7 +79,23 @@ public class TrabajoActivity extends AppCompatActivity {
         inicializarComponentes();
         cargarOpciones();
 
+        // Detectar si estamos creando o editando
+        idTrabajo = getIntent().getStringExtra("idTrabajo");
+
+        modoEdicion = idTrabajo != null && !idTrabajo.isEmpty();
+
+        if (modoEdicion) {
+
+            tvTituloFormulario.setText("Editar trabajo");
+            btnGuardar.setText("Guardar cambios");
+
+            if (savedInstanceState == null) {
+                cargarDatosTrabajo();
+            }
+        }
+
         if (savedInstanceState != null) {
+
             fechaEntrega = savedInstanceState.getString(
                     "fechaEntrega", "");
 
@@ -83,6 +112,8 @@ public class TrabajoActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
+
+        tvTituloFormulario = findViewById(R.id.tvTituloFormulario);
 
         etTitulo = findViewById(R.id.etTitulo);
         etAsignatura = findViewById(R.id.etAsignatura);
@@ -132,6 +163,47 @@ public class TrabajoActivity extends AppCompatActivity {
         spEstado.setAdapter(adapterEstado);
     }
 
+    // Recuperar los datos del trabajo seleccionado
+    private void cargarDatosTrabajo() {
+
+        etTitulo.setText(
+                getIntent().getStringExtra("titulo"));
+
+        etAsignatura.setText(
+                getIntent().getStringExtra("asignatura"));
+
+        etDescripcion.setText(
+                getIntent().getStringExtra("descripcion"));
+
+        String fecha = getIntent().getStringExtra("fechaEntrega");
+
+        if (fecha != null) {
+            fechaEntrega = fecha;
+            btnFecha.setText(fechaEntrega);
+        }
+
+        seleccionarOpcion(
+                spPrioridad,
+                getIntent().getStringExtra("prioridad"));
+
+        seleccionarOpcion(
+                spEstado,
+                getIntent().getStringExtra("estado"));
+    }
+
+    private void seleccionarOpcion(Spinner spinner, String valor) {
+
+        for (int i = 0; i < spinner.getCount(); i++) {
+
+            if (spinner.getItemAtPosition(i)
+                    .toString().equals(valor)) {
+
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
     private void seleccionarFecha() {
 
         Calendar calendario = Calendar.getInstance();
@@ -139,6 +211,17 @@ public class TrabajoActivity extends AppCompatActivity {
         int anio = calendario.get(Calendar.YEAR);
         int mes = calendario.get(Calendar.MONTH);
         int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        if (!fechaEntrega.isEmpty()) {
+
+            String[] partes = fechaEntrega.split("-");
+
+            if (partes.length == 3) {
+                anio = Integer.parseInt(partes[0]);
+                mes = Integer.parseInt(partes[1]) - 1;
+                dia = Integer.parseInt(partes[2]);
+            }
+        }
 
         DatePickerDialog dialogo = new DatePickerDialog(
                 this,
@@ -192,9 +275,11 @@ public class TrabajoActivity extends AppCompatActivity {
         }
 
         if (fechaEntrega.isEmpty()) {
+
             Toast.makeText(this,
                     "Selecciona una fecha de entrega",
                     Toast.LENGTH_SHORT).show();
+
             return;
         }
 
@@ -211,31 +296,51 @@ public class TrabajoActivity extends AppCompatActivity {
         btnCancelar.setEnabled(false);
         btnGuardar.setText("Guardando...");
 
-        repository.crearTrabajo(trabajo)
-                .addOnSuccessListener(documentReference -> {
+        Task<?> operacion;
 
-                    Toast.makeText(this,
-                            "Trabajo guardado correctamente",
-                            Toast.LENGTH_SHORT).show();
+        // Decidir si crear o actualizar
+        if (modoEdicion) {
 
-                    finish();
+            operacion = repository.actualizarTrabajo(
+                    idTrabajo, trabajo);
 
-                })
-                .addOnFailureListener(e -> {
+        } else {
 
-                    btnGuardar.setEnabled(true);
-                    btnCancelar.setEnabled(true);
-                    btnGuardar.setText("Guardar trabajo");
+            operacion = repository.crearTrabajo(trabajo);
+        }
 
-                    Toast.makeText(this,
-                            "Error al guardar: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                });
+        operacion.addOnSuccessListener(resultado -> {
+
+            String mensaje = modoEdicion
+                    ? "Trabajo actualizado correctamente"
+                    : "Trabajo guardado correctamente";
+
+            Toast.makeText(this,
+                    mensaje,
+                    Toast.LENGTH_SHORT).show();
+
+            finish();
+
+        }).addOnFailureListener(e -> {
+
+            btnGuardar.setEnabled(true);
+            btnCancelar.setEnabled(true);
+
+            btnGuardar.setText(modoEdicion
+                    ? "Guardar cambios"
+                    : "Guardar trabajo");
+
+            Toast.makeText(this,
+                    "Error al guardar: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        });
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+
         outState.putString("fechaEntrega", fechaEntrega);
+
         super.onSaveInstanceState(outState);
     }
 }

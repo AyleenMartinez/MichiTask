@@ -1,3 +1,4 @@
+
 package com.devst.michitask;
 
 import android.content.res.ColorStateList;
@@ -5,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,20 @@ public class TrabajoAdapter extends
         RecyclerView.Adapter<TrabajoAdapter.TrabajoViewHolder> {
 
     private final List<Trabajo> trabajos = new ArrayList<>();
+
+    private OnTrabajoListener listener;
+
+    // Acciones disponibles para cada trabajo
+    public interface OnTrabajoListener {
+
+        void onEditar(Trabajo trabajo);
+
+        void onEliminar(Trabajo trabajo);
+    }
+
+    public void setOnTrabajoListener(OnTrabajoListener listener) {
+        this.listener = listener;
+    }
 
     public void actualizarTrabajos(List<Trabajo> nuevosTrabajos) {
         trabajos.clear();
@@ -81,6 +97,22 @@ public class TrabajoAdapter extends
 
         holder.chipEstado.setChipBackgroundColor(
                 ColorStateList.valueOf(colorEstado));
+
+        // Botón Editar
+        holder.btnEditar.setOnClickListener(v -> {
+
+            if (listener != null) {
+                listener.onEditar(trabajo);
+            }
+        });
+
+        // Botón Eliminar
+        holder.btnEliminar.setOnClickListener(v -> {
+
+            if (listener != null) {
+                listener.onEliminar(trabajo);
+            }
+        });
     }
 
     @Override
@@ -99,6 +131,9 @@ public class TrabajoAdapter extends
         Chip chipPrioridad;
         Chip chipEstado;
 
+        Button btnEditar;
+        Button btnEliminar;
+
         public TrabajoViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -109,6 +144,9 @@ public class TrabajoAdapter extends
 
             chipPrioridad = itemView.findViewById(R.id.chipPrioridad);
             chipEstado = itemView.findViewById(R.id.chipEstado);
+
+            btnEditar = itemView.findViewById(R.id.btnEditar);
+            btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
     }
 }

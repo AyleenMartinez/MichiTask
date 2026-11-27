@@ -1,3 +1,4 @@
+
 package com.devst.michitask;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         inicializarComponentes();
         configurarRecyclerView();
 
-        // Abrir formulario para crear un trabajo
+        // CREATE: Abrir formulario vacío
         btnNuevoTrabajo.setOnClickListener(v -> {
 
             Intent intent = new Intent(
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Vincular los componentes del XML
     private void inicializarComponentes() {
 
         btnNuevoTrabajo = findViewById(R.id.btnNuevoTrabajo);
@@ -87,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         progressTrabajos = findViewById(R.id.progressTrabajos);
     }
 
-    // Configurar el listado de trabajos
     private void configurarRecyclerView() {
 
         adapter = new TrabajoAdapter();
@@ -96,9 +96,23 @@ public class MainActivity extends AppCompatActivity {
                 new LinearLayoutManager(this));
 
         rvTrabajos.setAdapter(adapter);
+
+        // Conectar las acciones de cada tarjeta
+        adapter.setOnTrabajoListener(
+                new TrabajoAdapter.OnTrabajoListener() {
+
+                    @Override
+                    public void onEditar(Trabajo trabajo) {
+                        editarTrabajo(trabajo);
+                    }
+
+                    @Override
+                    public void onEliminar(Trabajo trabajo) {
+                        confirmarEliminacion(trabajo);
+                    }
+                });
     }
 
-    // Actualizar los trabajos al regresar a la pantalla
     @Override
     protected void onResume() {
         super.onResume();
@@ -106,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         cargarTrabajos();
     }
 
-    // READ: Consultar trabajos desde Firestore
+    // READ: Consultar trabajos
     private void cargarTrabajos() {
 
         progressTrabajos.setVisibility(View.VISIBLE);
@@ -156,6 +170,78 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(this,
                             "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
+    }
+
+    // UPDATE: Abrir formulario con datos existentes
+    private void editarTrabajo(Trabajo trabajo) {
+
+        if (trabajo.getId() == null ||
+                trabajo.getId().isEmpty()) {
+
+            Toast.makeText(this,
+                    "No se encontró el ID del trabajo",
+                    Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        Intent intent = new Intent(
+                MainActivity.this,
+                TrabajoActivity.class
+        );
+
+        intent.putExtra("idTrabajo", trabajo.getId());
+        intent.putExtra("titulo", trabajo.getTitulo());
+        intent.putExtra("asignatura", trabajo.getAsignatura());
+        intent.putExtra("descripcion", trabajo.getDescripcion());
+        intent.putExtra("fechaEntrega", trabajo.getFechaEntrega());
+        intent.putExtra("prioridad", trabajo.getPrioridad());
+        intent.putExtra("estado", trabajo.getEstado());
+
+        startActivity(intent);
+    }
+
+    // Solicitar confirmación antes de eliminar
+    private void confirmarEliminacion(Trabajo trabajo) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar trabajo")
+                .setMessage(
+                        "¿Estás segura de eliminar \"" +
+                                trabajo.getTitulo() +
+                                "\"?\n\nEsta acción no se puede deshacer.")
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Eliminar", (dialog, which) -> {
+
+                    eliminarTrabajo(trabajo);
+                })
+                .show();
+    }
+
+    // DELETE: Eliminar documento de Firestore
+    private void eliminarTrabajo(Trabajo trabajo) {
+
+        progressTrabajos.setVisibility(View.VISIBLE);
+
+        repository.eliminarTrabajo(trabajo.getId())
+
+                .addOnSuccessListener(this, resultado -> {
+
+                    Toast.makeText(this,
+                            "Trabajo eliminado correctamente",
+                            Toast.LENGTH_SHORT).show();
+
+                    cargarTrabajos();
+                })
+
+                .addOnFailureListener(this, e -> {
+
+                    progressTrabajos.setVisibility(View.GONE);
+
+                    Toast.makeText(this,
+                            "Error al eliminar: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 });
     }

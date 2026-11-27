@@ -18,7 +18,7 @@ public class TrabajoRepository {
     private final FirebaseAuth auth =
             FirebaseAuth.getInstance();
 
-    // CREATE: Crear un trabajo
+    // CREATE: Crear trabajo
     public Task<DocumentReference> crearTrabajo(Trabajo trabajo) {
 
         FirebaseUser usuario = auth.getCurrentUser();
@@ -35,7 +35,7 @@ public class TrabajoRepository {
                 .add(trabajo);
     }
 
-    // READ: Consultar los trabajos del usuario
+    // READ: Consultar trabajos
     public Task<QuerySnapshot> obtenerTrabajos() {
 
         FirebaseUser usuario = auth.getCurrentUser();
@@ -51,5 +51,60 @@ public class TrabajoRepository {
                 .collection("trabajos")
                 .orderBy("fechaEntrega")
                 .get();
+    }
+
+    // UPDATE: Actualizar un trabajo existente
+    public Task<Void> actualizarTrabajo(String id, Trabajo trabajo) {
+
+        FirebaseUser usuario = auth.getCurrentUser();
+
+        if (usuario == null) {
+            return Tasks.forException(
+                    new IllegalStateException("No hay una sesión activa")
+            );
+        }
+
+        if (id == null || id.isEmpty()) {
+            return Tasks.forException(
+                    new IllegalArgumentException("ID de trabajo inválido")
+            );
+        }
+
+        return db.collection("usuarios")
+                .document(usuario.getUid())
+                .collection("trabajos")
+                .document(id)
+                .update(
+                        "titulo", trabajo.getTitulo(),
+                        "asignatura", trabajo.getAsignatura(),
+                        "descripcion", trabajo.getDescripcion(),
+                        "fechaEntrega", trabajo.getFechaEntrega(),
+                        "prioridad", trabajo.getPrioridad(),
+                        "estado", trabajo.getEstado()
+                );
+    }
+
+    // DELETE: Eliminar un trabajo
+    public Task<Void> eliminarTrabajo(String id) {
+
+        FirebaseUser usuario = auth.getCurrentUser();
+
+        if (usuario == null) {
+            return Tasks.forException(
+                    new IllegalStateException("No hay una sesión activa")
+            );
+        }
+
+        if (id == null || id.isEmpty()) {
+            return Tasks.forException(
+                    new IllegalArgumentException("ID de trabajo inválido")
+            );
+        }
+
+        return db.collection("usuarios")
+                .document(usuario.getUid())
+                .collection("trabajos")
+                .document(id)
+                .delete();
     }
 }

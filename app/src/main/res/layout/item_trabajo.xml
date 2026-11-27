@@ -71,8 +71,6 @@
             android:textSize="14sp"
             tools:text="Implementar CRUD con Firebase." />
 
-        <!-- Separador -->
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -94,7 +92,7 @@
                 android:layout_weight="1"
                 android:textColor="#79668C"
                 android:textSize="13sp"
-                tools:text="Entrega: 27/11/2026" />
+                tools:text="Entrega: 2026-11-27" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstado"
@@ -106,6 +104,50 @@
                 app:chipBackgroundColor="#EDE3FA"
                 app:chipStrokeWidth="0dp"
                 tools:text="En progreso" />
+
+        </LinearLayout>
+
+        <!-- Separador -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#EDE3FA" />
+
+        <!-- Botones de edición y eliminación -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditar"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Editar"
+                android:textAllCaps="false"
+                android:textColor="#67469B"
+                android:textSize="13sp"
+                app:backgroundTint="#EDE3FA"
+                app:cornerRadius="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Eliminar"
+                android:textAllCaps="false"
+                android:textColor="#A64454"
+                android:textSize="13sp"
+                app:backgroundTint="#FBE4E7"
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
 
