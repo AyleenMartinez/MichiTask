@@ -1,4 +1,3 @@
-
 package com.devst.michitask;
 
 import android.content.Intent;
@@ -27,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnNuevoTrabajo;
+    private Button btnCerrarSesion;
     private RecyclerView rvTrabajos;
     private TextView tvContador;
     private TextView tvVacio;
@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!SessionManager.protegerPantalla(this)) {
+            return;
+        }
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -67,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
         inicializarComponentes();
         configurarRecyclerView();
 
+        btnCerrarSesion.setOnClickListener(v -> {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Cerrar sesión")
+                    .setMessage("¿Quieres cerrar tu sesión en MichiTask?")
+                    .setNegativeButton("Cancelar", null)
+                    .setPositiveButton("Cerrar sesión", (dialog, which) -> {
+                        SessionManager.cerrarSesion(this);
+                    })
+                    .show();
+        });
+
         // CREATE: Abrir formulario vacío
         btnNuevoTrabajo.setOnClickListener(v -> {
 
@@ -86,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         tvContador = findViewById(R.id.tvContador);
         tvVacio = findViewById(R.id.tvVacio);
         progressTrabajos = findViewById(R.id.progressTrabajos);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
     }
 
     private void configurarRecyclerView() {
@@ -116,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (isFinishing()) {
+            return;
+        }
+
+        if (!SessionManager.protegerPantalla(this)) {
+            return;
+        }
 
         cargarTrabajos();
     }

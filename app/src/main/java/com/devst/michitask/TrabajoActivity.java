@@ -54,6 +54,10 @@ public class TrabajoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!SessionManager.protegerPantalla(this)) {
+            return;
+        }
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_trabajo);
 
@@ -342,5 +346,14 @@ public class TrabajoActivity extends AppCompatActivity {
         outState.putString("fechaEntrega", fechaEntrega);
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!isFinishing()) {
+            SessionManager.protegerPantalla(this);
+        }
     }
 }
