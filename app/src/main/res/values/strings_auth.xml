@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos del módulo de autenticación.
+     Están en un archivo aparte para no chocar con strings.xml de mi compañera. -->
+<resources>
+    <string name="auth_icono_michi">🐱</string>
+
+    <!-- Campos comunes -->
+    <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+
+    <!-- Pantalla de registro -->
+    <string name="registro_titulo">Crea tu cuenta</string>
+    <string name="registro_subtitulo">Únete a la manada de MichiTask</string>
+    <string name="hint_confirmar_contrasena">Confirmar contraseña</string>
+    <string name="btn_registrarse">Registrarme</string>
+
+    <!-- Validaciones -->
+    <string name="error_correo_vacio">Ingresa tu correo</string>
+    <string name="error_correo_invalido">El formato del correo no es válido</string>
+    <string name="error_contrasena_vacia">Ingresa tu contraseña</string>
+    <string name="error_contrasena_corta">Debe tener al menos 6 caracteres</string>
+    <string name="error_confirmar_vacia">Repite tu contraseña</string>
+    <string name="error_contrasenas_distintas">Las contraseñas no coinciden</string>
+
+    <!-- Respuestas de Firebase al registrarse -->
+    <string name="msg_registro_ok">¡Cuenta creada! Bienvenido a MichiTask</string>
+    <string name="error_correo_en_uso">Ese correo ya está registrado</string>
+    <string name="error_contrasena_debil">La contraseña es muy débil</string>
+    <string name="error_sin_conexion">Sin conexión a internet. Inténtalo de nuevo</string>
+    <string name="error_registro_general">No se pudo crear la cuenta. Inténtalo de nuevo</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Colores del módulo de autenticación (login y registro).
+     Están en un archivo aparte para no chocar con colors.xml de mi compañera. -->
+<resources>
+    <color name="michi_crema">#FFFFF8EC</color>
+    <color name="michi_tarjeta">#FFFFFDF8</color>
+    <color name="michi_lavanda_claro">#FFE9E1F7</color>
+    <color name="michi_lavanda">#FFB8A4E3</color>
+    <color name="michi_lavanda_oscuro">#FF6E5A9E</color>
+    <color name="michi_texto">#FF4A4060</color>
+    <color name="michi_texto_suave">#FF8A8199</color>
+</resources>
